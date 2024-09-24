@@ -1,6 +1,6 @@
 package com.financial.creditcard;
 
-import com.financial.banking.Account;
+import com.financial.framework.Account;
 import com.financial.banking.Customer;
 
 public abstract class CreditCard extends Account {

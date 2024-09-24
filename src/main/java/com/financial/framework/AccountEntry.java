@@ -1,4 +1,4 @@
-package com.financial.banking;
+package com.financial.framework;
 
 import java.util.Date;
 
