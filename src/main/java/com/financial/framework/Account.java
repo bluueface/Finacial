@@ -1,4 +1,7 @@
-package com.financial.banking;
+package com.financial.framework;
+
+import com.financial.banking.Customer;
+import com.financial.banking.InterestStrategy;
 
 import java.util.ArrayList;
 import java.util.Collection;

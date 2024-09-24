@@ -1,17 +1,21 @@
 package com.financial.banking;
 
-public class CheckingAccount extends Account {
-    public CheckingAccount(String accountNumber, Customer customer) {
-        super(accountNumber, customer);
-    }
+import com.financial.framework.Account;
 
-    @Override
-    public void deposit(double amount) {
+import java.util.Observable;
+
+public class CheckingAccount extends Account {
+    private Observable observable = new Observable() {};
+
+    public CheckingAccount(String accountNumber, Company company) {
+        super(accountNumber, company);
     }
 
     @Override
     public void withdraw(double amount) {
+//        observable.
     }
 
+//    public notifyObservers()
 
 }
