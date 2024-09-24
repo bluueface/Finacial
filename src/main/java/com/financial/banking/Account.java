@@ -9,7 +9,7 @@ public abstract class Account {
     private InterestStrategy interestStrategy;
     // private AccountStrategy accountStrategy;
     private Customer customer;
-    private List<AccountEntry> entryList = new ArrayList<>();
+    private List<AccountEntry> entryList = new ArrayList<AccountEntry>();
 
     public Account(String accountNumber, Customer customer) {
         this.accountNumber = accountNumber;
@@ -46,5 +46,13 @@ public abstract class Account {
 
     public Collection<AccountEntry> getEntryList() {
         return entryList;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 }
