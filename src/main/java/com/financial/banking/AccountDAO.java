@@ -1,5 +1,7 @@
 package com.financial.banking;
 
+import com.financial.framework.Account;
+
 import java.util.Collection;
 public interface AccountDAO {
     void saveAccount(Account account);

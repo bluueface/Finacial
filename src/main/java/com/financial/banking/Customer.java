@@ -6,6 +6,7 @@ import com.financial.framework.Builder;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public abstract class Customer {
     private final List<Account> accounts;
     private long id;

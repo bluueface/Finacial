@@ -1,6 +1,7 @@
 package com.financial.framework;
 
 import com.financial.banking.*;
+import com.financial.creditcard.CreditCard;
 
 public class AccountFactory {
     public Account createPersonalAccount(String accountNumber, PersonBuilder builder) {
@@ -17,4 +18,5 @@ public class AccountFactory {
         Company company = new Company(builder);
         return new CheckingAccount(accountNum, company);
     }
+
 }
