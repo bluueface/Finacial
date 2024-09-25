@@ -1,7 +1,6 @@
 package com.financial.framework;
 
 import com.financial.banking.*;
-import com.financial.creditcard.CreditCard;
 
 public class AccountFactory {
     public Account createPersonalAccount(String accountNumber, PersonBuilder builder) {
@@ -19,4 +18,19 @@ public class AccountFactory {
         return new CheckingAccount(accountNum, company);
     }
 
+    public Account createAccount(AccountType type, String accountNum, Builder builder) {
+        Account account = null;
+        switch (type) {
+            case CHECKING:
+                account = createCheckingAccount(accountNum, (CompanyBuilder) builder);
+                break;
+            case SAVINGS:
+                account = createSavingsAccount(accountNum, (CompanyBuilder) builder);
+                break;
+            case PERSONAL:
+                account = createPersonalAccount(accountNum, (PersonBuilder) builder);
+                break;
+        }
+        return account;
+    }
 }
