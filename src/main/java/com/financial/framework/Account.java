@@ -1,6 +1,5 @@
 package com.financial.framework;
 
-import com.financial.banking.Customer;
 import com.financial.banking.InterestStrategy;
 
 import java.util.ArrayList;
@@ -10,13 +9,10 @@ import java.util.List;
 public abstract class Account {
     private String accountNumber;
     private InterestStrategy interestStrategy;
-    // private AccountStrategy accountStrategy;
-    private Customer customer;
     private List<AccountEntry> entryList = new ArrayList<AccountEntry>();
 
-    public Account(String accountNumber, Customer customer) {
+    public Account(String accountNumber) {
         this.accountNumber = accountNumber;
-        this.customer = customer;
     }
 
     public double getBalance() {
@@ -25,7 +21,6 @@ public abstract class Account {
         // balance += entry.getAmount();
         // }
         // return balance;
-
         return 0;
     }
 

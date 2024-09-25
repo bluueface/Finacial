@@ -6,11 +6,12 @@ public class CreditCardServiceImpl implements CreditCardService {
     private final AccountDAO accountDAO = new AccountDAOImpl();
 
     @Override
-    public Account createCreditCard(String accountNumber, PersonBuilder builder, AccountType type) {
-        CreditCardFactory creditCardFactory = new CreditCardFactory();
-        Account account = creditCardFactory.createCreditCardAccount(accountNumber, builder, type);
-        accountDAO.saveAccount(account);
-        return account;
+    public Account createCreditCard(String accountNumber, AccountType type) {
+//        CreditCardFactory creditCardFactory = new CreditCardFactory();
+//        Account account = creditCardFactory.createCreditCardAccount(accountNumber, type);
+//        accountDAO.saveAccount(account);
+//        return account;
+        return null;
     }
 
     @Override

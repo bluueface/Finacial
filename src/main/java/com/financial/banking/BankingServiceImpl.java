@@ -2,25 +2,18 @@ package com.financial.banking;
 
 import com.financial.framework.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class BankingServiceImpl implements BankingService {
-    private final List<Customer> customers;
-    private final AccountFactory accountFactory;
+//    private final AccountFactory accountFactory;
     private Command command;
 
-
     public BankingServiceImpl() {
-        accountFactory = new AccountFactory();
-        customers = new ArrayList<>();
+//        accountFactory = new AccountFactory();
     }
-
     @Override
-    public Account createAccount(AccountType type, String accountNumber, Builder builder) {
+    public Account createAccount(AccountType type, String accountNumber) {
         Account account = null;
-        AccountFactory accountFactory = new AccountFactory();
-        account = accountFactory.createAccount(type, accountNumber, builder);
+//        AccountFactory accountFactory = new AccountFactory();
+//        account = accountFactory.createAccount(type, accountNumber);
         return account;
     }
 

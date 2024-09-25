@@ -2,10 +2,9 @@ package com.financial.creditcard;
 
 import com.financial.framework.Account;
 import com.financial.framework.AccountType;
-import com.financial.framework.PersonBuilder;
 
 public interface CreditCardService {
-    Account createCreditCard(String accountNumber, PersonBuilder builder, AccountType type);
+    Account createCreditCard(String accountNumber, AccountType type);
 
     void generateMonthlyBillingReport();
 

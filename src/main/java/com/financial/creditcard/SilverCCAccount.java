@@ -1,15 +1,19 @@
 package com.financial.creditcard;
 
-import com.financial.banking.Customer;
+import com.financial.framework.AccountType;
 
 public class SilverCCAccount extends CreditCard{
 
-    public SilverCCAccount(String accountNumber, Customer customer) {
-        super(accountNumber, customer);
+    public SilverCCAccount(String accountNumber, String cardNumber, String cardHolderName, double limit) {
+        super(accountNumber, cardNumber, cardHolderName, limit);
     }
 
     @Override
     protected void charge(double amount) {
 
+    }
+    @Override
+    public AccountType getType() {
+        return AccountType.SILVER;
     }
 }

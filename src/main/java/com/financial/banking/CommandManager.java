@@ -27,7 +27,7 @@ public class CommandManager {
     }
     public void notifyObservers(){
         for(Observer observer : observers){
-            observer.update();
+            observer.update("Notify");
         }
     }
     public void addObserver(Observer observer){

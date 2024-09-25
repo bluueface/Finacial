@@ -2,10 +2,9 @@ package com.financial.banking;
 
 import com.financial.framework.Account;
 import com.financial.framework.AccountType;
-import com.financial.framework.Builder;
 
 public interface BankingService {
-    Account createAccount(AccountType type, String accountNumber, Builder builder);
+    Account createAccount(AccountType type, String accountNumber);
     void deposit(String accountNumber, double amount);
     void withdraw(String accountNumber, double amount);
     void addInterest(String accountNumber, double interestRat);
