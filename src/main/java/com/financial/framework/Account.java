@@ -1,46 +1,60 @@
 package com.financial.framework;
 
-import com.financial.banking.Customer;
-import com.financial.banking.InterestStrategy;
+import com.financial.framework.strategy.AccountStrategy;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
-public abstract class Account {
+public class Account {
     private String accountNumber;
-    private InterestStrategy interestStrategy;
-    // private AccountStrategy accountStrategy;
-    private Customer customer;
-    private List<AccountEntry> entryList = new ArrayList<AccountEntry>();
+    private final AccountStrategy accountStrategy;
+    private final Customer customer;
+    private final List<AccountEntry> entryList = new LinkedList<>();
 
-    public Account(String accountNumber, Customer customer) {
+    public Account(String accountNumber, Customer customer, AccountStrategy accountStrategy) {
         this.accountNumber = accountNumber;
+        this.accountStrategy = accountStrategy;
         this.customer = customer;
     }
 
-    public double getBalance() {
-        // double balance = 0;
-        // for (AccountEntry entry : entryList) {
-        // balance += entry.getAmount();
-        // }
-        // return balance;
-
-        return 0;
+    public Account(Customer customer, AccountStrategy accountStrategy) {
+        this.accountNumber = generateAccountNo();
+        this.accountStrategy = accountStrategy;
+        this.customer = customer;
     }
 
-    public void setInterestStrategy(InterestStrategy interestStrategy) {
-        this.interestStrategy = interestStrategy;
+    public boolean match(String accountNo) {
+        return this.accountNumber.equals(accountNo);
+    }
+
+    public double getBalance() {
+        double balance = 0;
+        for (AccountEntry entry : entryList) {
+            balance += entry.getAmount();
+        }
+        return balance;
+    }
+
+    public void deposit(double amount, String description) {
+        AccountEntry entry = new AccountEntry(amount, description);
+        entryList.add(entry);
     }
 
     public void deposit(double amount) {
-        AccountEntry entry = new AccountEntry(amount, "deposit", "", "");
+        deposit(amount, "deposit");
+    }
+
+    public void withdraw(double amount, String description) {
+        AccountEntry entry = new AccountEntry(-amount, description);
         entryList.add(entry);
     }
 
     public void withdraw(double amount) {
-        AccountEntry entry = new AccountEntry(-amount, "withdraw", "", "");
-        entryList.add(entry);
+        withdraw(amount, "withdraw");
+    }
+
+    public void addInterest() {
+        double interest = accountStrategy.computeInterest(this);
+        this.deposit(interest);
     }
 
     private void addEntry(AccountEntry entry) {
@@ -55,13 +69,16 @@ public abstract class Account {
         return accountNumber;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 
-    public void addInterest(double interestRate) {
-        double interest = this.getBalance() * interestRate;
-        withdraw(interest);
-        addEntry(new AccountEntry(interest, "interest", "", accountNumber));
+    private String generateAccountNo() {
+        return String.valueOf(new Date().getTime()).substring(0, 10);
     }
+
 }

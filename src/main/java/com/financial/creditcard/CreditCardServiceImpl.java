@@ -1,40 +1,37 @@
 package com.financial.creditcard;
 
-import com.financial.framework.*;
+import com.financial.creditcard.facade.CreditCardService;
+import com.financial.framework.builder.PersonBuilder;
+import com.financial.framework.factory.CreditCardFactory;
 
 public class CreditCardServiceImpl implements CreditCardService {
-    private final AccountDAO accountDAO = new AccountDAOImpl();
+    private final CreditCardFactory factory;
 
+    public CreditCardServiceImpl(CreditCardFactory factory) {
+        this.factory = factory;
+    }
     @Override
-    public Account createCreditCard(String accountNumber, PersonBuilder builder, AccountType type) {
-        CreditCardFactory creditCardFactory = new CreditCardFactory();
-        Account account = creditCardFactory.createCreditCardAccount(accountNumber, builder, type);
-        accountDAO.saveAccount(account);
-        return account;
+    public CreditCardAccount createCreditCard(CreditCardType type) {
+        return factory.createCreditCard(type, new PersonBuilder());
     }
 
     @Override
-    public void deposit(String accountNumber, double amount) {
-        Account account = accountDAO.loadAccount(accountNumber);
-        account.deposit(amount);
-        accountDAO.updateAccount(account);
+    public void generateMonthlyBillingReport() {
+
     }
 
     @Override
-    public void withdraw(String accountNumber, double amount) {
-        Account account = accountDAO.loadAccount(accountNumber);
-        account.withdraw(amount);
-        accountDAO.updateAccount(account);
+    public void deposit(double amount) {
+
+    }
+
+    @Override
+    public void withdraw(double amount) {
 
     }
 
     @Override
     public void addInterest() {
-
-    }
-
-    @Override
-    public void generateMonthlyBillingReport() {
 
     }
 }

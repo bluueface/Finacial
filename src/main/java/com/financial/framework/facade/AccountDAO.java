@@ -1,5 +1,6 @@
-package com.financial.framework;
+package com.financial.framework.facade;
 
+import com.financial.framework.Account;
 
 import java.util.Collection;
 public interface AccountDAO {

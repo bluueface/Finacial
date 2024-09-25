@@ -1,6 +1,6 @@
-package com.financial.banking;
+package com.financial.framework;
 
-import com.financial.framework.CompanyBuilder;
+import com.financial.framework.builder.CompanyBuilder;
 
 public class Company extends Customer {
     private int noOfEmployees;
@@ -16,5 +16,10 @@ public class Company extends Customer {
 
     public void setNoOfEmployees(int noOfEmployees) {
         this.noOfEmployees = noOfEmployees;
+    }
+
+    @Override
+    public String getType() {
+        return "Company";
     }
 }

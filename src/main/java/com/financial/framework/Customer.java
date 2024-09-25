@@ -1,10 +1,10 @@
-package com.financial.banking;
+package com.financial.framework;
 
-import com.financial.framework.Account;
-import com.financial.framework.Builder;
+import com.financial.framework.builder.Builder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public abstract class Customer {
@@ -24,6 +24,21 @@ public abstract class Customer {
         state = builder.getState();
         zip = builder.getZip();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Customer)) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(name, customer.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
+    }
+
+    public abstract String getType();
 
     public void addAccount(Account account) {
         accounts.add(account);

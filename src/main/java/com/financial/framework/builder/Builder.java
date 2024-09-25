@@ -1,4 +1,4 @@
-package com.financial.framework;
+package com.financial.framework.builder;
 
 public class Builder {
     private String name;
