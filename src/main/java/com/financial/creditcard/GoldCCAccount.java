@@ -12,6 +12,9 @@ public class GoldCCAccount extends CreditCard {
     protected void charge(double amount) {
 
     }
+
+
+
     @Override
     public AccountType getType() {
         return AccountType.GOLD;

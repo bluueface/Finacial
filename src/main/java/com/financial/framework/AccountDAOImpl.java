@@ -12,9 +12,9 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     public void updateAccount(Account account) {
-        Account accountexist = loadAccount(account.getAccountNumber());
-        if (accountexist != null) {
-            accountlist.remove(accountexist); // remove the old
+        Account isAccountExist = loadAccount(account.getAccountNumber());
+        if (isAccountExist != null) {
+            accountlist.remove(isAccountExist); // remove the old
             accountlist.add(account); // add the new
         }
 

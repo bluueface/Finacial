@@ -9,4 +9,5 @@ public class GoldCreditCardFactory implements CreditCardFactory {
     private String generateCardNumber() {
         return "GOLD" + Math.random();
     }
+
 }

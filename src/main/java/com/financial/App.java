@@ -1,11 +1,14 @@
 package com.financial;
 
+import com.financial.banking.InterestStrategy;
 import com.financial.banking.PersonalAccount;
+import com.financial.banking.PersonalAccountInterestStrategy;
 import com.financial.creditcard.*;
 import com.financial.framework.Account;
 import com.financial.framework.Company;
 import com.financial.framework.Person;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,5 +58,28 @@ public class App
         for (CreditCard card : person_2.getCreditCards()) {
             System.out.println("Person: " + person_2.getName() + ", Card Type: " + card.getType() + ", Card Number: " + card.getCardNumber() + ", Limit: " + card.getLimit());
         }
+
+        // Adding interest to everyAccount;
+        InterestStrategy initialInterest = new PersonalAccountInterestStrategy();
+        List<Person> people = new ArrayList<>();
+        people.add(person_2);
+        people.add(person_1);
+
+        for (Person p : people) {
+            for (Account a : p.getAccounts()) {
+                if (p.getName() != "Tume") {
+                    a.addInterest(initialInterest);
+                    a.calculateInterest();
+                }
+            }
+        }
+
+        for (Person p : people) {
+            for (Account a : p.getAccounts()) {
+                System.out.println("Person: " + p.getName() + ", Balance after: " + a.getBalance());
+            }
+        }
+
+
     }
 }

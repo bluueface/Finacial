@@ -32,10 +32,10 @@ public class BankingServiceImpl implements BankingService {
     }
 
     @Override
-    public void addInterest(String accountNumber,double interestRate) {
+    public void addInterest(String accountNumber, double interestRate) {
         AccountDAO accountDAO = new AccountDAOImpl();
         Account account = accountDAO.loadAccount(accountNumber);
-        account.addInterest(interestRate);
+//        account.addInterest(interestRate);
     }
 
     @Override

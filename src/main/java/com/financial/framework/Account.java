@@ -8,24 +8,16 @@ import java.util.List;
 
 public abstract class Account {
     private String accountNumber;
-    private InterestStrategy interestStrategy;
     private List<AccountEntry> entryList = new ArrayList<AccountEntry>();
+    private InterestStrategy interestStrategy;
+    private double balance;
 
     public Account(String accountNumber) {
+        this.balance = 1000;
         this.accountNumber = accountNumber;
     }
-
-    public double getBalance() {
-        // double balance = 0;
-        // for (AccountEntry entry : entryList) {
-        // balance += entry.getAmount();
-        // }
-        // return balance;
-        return 0;
-    }
-
-    public void setInterestStrategy(InterestStrategy interestStrategy) {
-        this.interestStrategy = interestStrategy;
+    public double getBalance() {;
+        return balance;
     }
 
     public void deposit(double amount) {
@@ -38,14 +30,6 @@ public abstract class Account {
         entryList.add(entry);
     }
 
-    private void addEntry(AccountEntry entry) {
-        entryList.add(entry);
-    }
-
-    public Collection<AccountEntry> getEntryList() {
-        return entryList;
-    }
-
     public String getAccountNumber() {
         return accountNumber;
     }
@@ -54,9 +38,15 @@ public abstract class Account {
         this.accountNumber = accountNumber;
     }
 
-    public void addInterest(double interestRate) {
-        double interest = this.getBalance() * interestRate;
-        withdraw(interest);
-        addEntry(new AccountEntry(interest, "interest", "", accountNumber));
+    public void addInterest(InterestStrategy interest) {
+        this.interestStrategy = interest;
+    }
+
+    public InterestStrategy getInterestStrategy() {
+        return this.interestStrategy;
+    }
+
+    public double calculateInterest() {
+        return this.balance = this.balance + interestStrategy.calculateInterest(balance);
     }
 }
