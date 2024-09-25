@@ -1,4 +1,4 @@
-package com.financial.framework;
+package com.financial.framework.facade;
 
 public interface Subject {
     void notifyObservers();

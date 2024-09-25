@@ -1,9 +1,10 @@
-package com.financial.creditcard;
+package com.financial.creditcard.facade;
 
+import com.financial.creditcard.CreditCardType;
 import com.financial.framework.Account;
 
 public interface CreditCardService {
-    Account createCreditCard();
+    Account createCreditCard(CreditCardType cardType);
     void generateMonthlyBillingReport();
     void deposit(double amount);
     void withdraw(double amount);
