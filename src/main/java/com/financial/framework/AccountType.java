@@ -1,5 +1,6 @@
 package com.financial.framework;
 
 public enum AccountType {
-    PERSONAL, SAVINGS, CHECKING;
+    PERSONAL, SAVINGS, CHECKING,
+    BRONZE, SILVER, GOLD;
 }

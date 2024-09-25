@@ -58,7 +58,8 @@ public abstract class Account {
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
-    public void addInterest(double interestRate){
+
+    public void addInterest(double interestRate) {
         double interest = this.getBalance() * interestRate;
         withdraw(interest);
         addEntry(new AccountEntry(interest, "interest", "", accountNumber));

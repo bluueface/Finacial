@@ -1,9 +1,6 @@
 package com.financial.banking;
 
-import com.financial.framework.Account;
-import com.financial.framework.AccountFactory;
-import com.financial.framework.AccountType;
-import com.financial.framework.Builder;
+import com.financial.framework.*;
 
 import java.util.ArrayList;
 import java.util.List;
