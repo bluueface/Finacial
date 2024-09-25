@@ -1,6 +1,7 @@
 package com.financial.banking;
 
 import com.financial.framework.Account;
+import com.financial.framework.Company;
 
 import java.util.Observable;
 
