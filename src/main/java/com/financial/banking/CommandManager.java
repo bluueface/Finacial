@@ -1,6 +1,6 @@
 package com.financial.banking;
 
-import com.financial.framework.Observer;
+import com.financial.framework.observer.Observer;
 
 import java.util.ArrayList;
 import java.util.List;

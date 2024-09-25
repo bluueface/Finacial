@@ -1,4 +1,4 @@
-package com.financial.framework.facade;
+package com.financial.framework.observer;
 
 public interface Observer {
     void update();
