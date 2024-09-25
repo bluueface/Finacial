@@ -1,6 +1,4 @@
-package com.financial.banking;
-
-import com.financial.framework.Account;
+package com.financial.framework;
 
 import java.util.Collection;
 public interface AccountDAO {

@@ -1,11 +1,17 @@
 package com.financial.creditcard;
 
 import com.financial.framework.Account;
+import com.financial.framework.AccountType;
+import com.financial.framework.PersonBuilder;
 
 public interface CreditCardService {
-    Account createCreditCard();
+    Account createCreditCard(String accountNumber, PersonBuilder builder, AccountType type);
+
     void generateMonthlyBillingReport();
-    void deposit(double amount);
-    void withdraw(double amount);
+
+    void deposit(String accountNumber, double amount);
+
+    void withdraw(String accountNumber, double amount);
+
     void addInterest();
 }
