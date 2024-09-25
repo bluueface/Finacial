@@ -17,4 +17,20 @@ public class AccountFactory {
         Company company = new Company(builder);
         return new CheckingAccount(accountNum, company);
     }
+
+    public Account createAccount(AccountType type, String accountNum, Builder builder) {
+        Account account = null;
+        switch (type) {
+            case CHECKING:
+                account = createCheckingAccount(accountNum, (CompanyBuilder) builder);
+                break;
+            case SAVINGS:
+                account = createSavingsAccount(accountNum, (CompanyBuilder) builder);
+                break;
+            case PERSONAL:
+                account = createPersonalAccount(accountNum, (PersonBuilder) builder);
+                break;
+        }
+        return account;
+    }
 }
