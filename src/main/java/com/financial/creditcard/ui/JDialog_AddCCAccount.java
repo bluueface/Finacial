@@ -3,6 +3,7 @@ package com.financial.creditcard.ui;
 import com.financial.creditcard.CreditCardServiceImpl;
 import com.financial.creditcard.CreditCardType;
 import com.financial.creditcard.facade.CreditCardService;
+import com.financial.framework.Account;
 import com.financial.framework.builder.Builder;
 import com.financial.framework.builder.PersonBuilder;
 import com.financial.framework.factory.CreditCardFactory;
@@ -197,7 +198,6 @@ public class JDialog_AddCCAccount extends JDialog {
             }
         }
 
-        // Call the createCreditCard method from CreditCardService
         PersonBuilder builder = new PersonBuilder();
         builder.setName(parentframe.clientName);
         builder.setStreet(parentframe.street);
@@ -205,8 +205,10 @@ public class JDialog_AddCCAccount extends JDialog {
         builder.setZip(parentframe.zip);
         builder.setState(parentframe.state);
 
-        parentframe.getCreditCardService().createCreditCard(type, builder);
+        Account creditCard = parentframe.getCreditCardService().createCreditCard(type, builder);
 
+
+        parentframe.ccnumber = creditCard.getAccountNumber();
         parentframe.newaccount = true;
         dispose();
     }

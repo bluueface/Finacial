@@ -1,11 +1,13 @@
 package com.financial.framework;
 
+import com.financial.framework.observer.Observer;
+import com.financial.framework.observer.Subject;
 import com.financial.framework.strategy.AccountStrategy;
 
 import java.time.LocalDate;
 import java.util.*;
 
-public class Account {
+public class Account implements Subject {
     private String accountNumber;
     private final AccountStrategy accountStrategy;
     private final Customer customer;
@@ -84,5 +86,20 @@ public class Account {
 
     public AccountStrategy getAccountStrategy() {
         return accountStrategy;
+    }
+
+    @Override
+    public void notifyObservers() {
+
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+
     }
 }
