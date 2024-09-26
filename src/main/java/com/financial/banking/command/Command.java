@@ -1,4 +1,4 @@
-package com.financial.banking;
+package com.financial.banking.command;
 
 public interface Command {
     void execute();

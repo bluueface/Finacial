@@ -22,4 +22,9 @@ public class Company extends Customer {
     public String getType() {
         return "Company";
     }
+
+    @Override
+    public boolean match(String name) {
+        return getName().equals(name);
+    }
 }

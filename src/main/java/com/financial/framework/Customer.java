@@ -1,5 +1,6 @@
 package com.financial.framework;
 
+import com.financial.creditcard.CreditCardAccount;
 import com.financial.framework.builder.Builder;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.Objects;
 
 public abstract class Customer {
     private final List<Account> accounts;
+    private final List<CreditCardAccount> creditCardAccounts;
     private long id;
     private String name;
     private String street;
@@ -18,6 +20,7 @@ public abstract class Customer {
 
     public Customer(Builder builder) {
         accounts = new ArrayList<>();
+        creditCardAccounts = new ArrayList<>();
         name = builder.getName();
         street = builder.getStreet();
         city = builder.getCity();
@@ -39,13 +42,22 @@ public abstract class Customer {
     }
 
     public abstract String getType();
+    public abstract boolean match(String identity);
 
     public void addAccount(Account account) {
         accounts.add(account);
     }
 
+    public void addCreditCard(CreditCardAccount account) {
+        creditCardAccounts.add(account);
+    }
+
     public List<Account> getAccounts() {
         return accounts;
+    }
+
+    public List<CreditCardAccount> getCreditCardAccounts() {
+        return creditCardAccounts;
     }
 
     public long getId() {

@@ -1,6 +1,4 @@
-package com.financial.framework.facade;
-
-import com.financial.framework.observer.Observer;
+package com.financial.framework.observer;
 
 public interface Subject {
     void notifyObservers();

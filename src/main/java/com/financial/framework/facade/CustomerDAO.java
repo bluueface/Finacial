@@ -6,7 +6,7 @@ import com.financial.framework.Customer;
 import java.util.Collection;
 
 public interface CustomerDAO {
-    void saveCustomer(Account account);
+    void saveCustomer(Customer customer);
     void updateCustomer(Customer customer);
     Collection<Customer> getCustomers();
 }

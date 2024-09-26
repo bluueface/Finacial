@@ -5,31 +5,35 @@ import com.financial.framework.facade.CustomerDAO;
 import java.util.*;
 
 public class CustomerDAOImpl implements CustomerDAO {
-    private final Map<Customer, Set<Account>> customers = new HashMap<>();
-    Collection<Customer> customerList = new ArrayList<>();
+    Set<Customer> customerList = new HashSet<>();
 
     @Override
-    public void saveCustomer(Account account) {
-        Customer customer = account.getCustomer();
-        customer.addAccount(account);
+    public void saveCustomer(Customer customer) {
+        Customer customerExists = customerList.stream()
+                .filter(c -> c.equals(customer))
+                .findFirst()
+                .orElse(null);
+        if (customerExists != null) {
+            customerList.remove(customerExists);
+            customerExists.getAccounts().forEach(customer::addAccount);
+        }
         customerList.add(customer); // add the new
     }
 
     @Override
     public void updateCustomer(Customer customer) {
-//        Account accountExists = loadAccount(account.getAccountNumber());
-//        if (accountExists != null) {
-//            customerList.remove(accountExists); // remove the old
-//            customerList.add(account); // add the new
-//        }
+        boolean customerExists = customerList.contains(customer);
+        if (customerExists) {
+            customerList.remove(customer);
+            customerList.add(customer);
+        }
     }
 
-    public Customer loadAccount(String accountNumber) {
-        Optional<Customer> customer = customers.keySet().stream()
-                .filter(Customer::match)
-                .limit(1
-                ).findFirst();
-        return customer.orElse(null);
+    public Customer loadCustomer(String name) {
+        return customerList.stream()
+                .filter(c -> c.getName().equals(name))
+                .findFirst()
+                .orElse(null);
     }
 
     public Collection<Customer> getCustomers() {
