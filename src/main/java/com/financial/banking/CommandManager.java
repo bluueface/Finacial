@@ -1,5 +1,6 @@
 package com.financial.banking;
 
+import com.financial.banking.command.Command;
 import com.financial.framework.observer.Observer;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class CommandManager {
     }
     public void notifyObservers(){
         for(Observer observer : observers){
-            observer.update();
+//            observer.update();
         }
     }
     public void addObserver(Observer observer){

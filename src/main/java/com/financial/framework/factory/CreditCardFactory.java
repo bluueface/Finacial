@@ -19,6 +19,8 @@ public class CreditCardFactory {
         } else {
             strategy = new GoldCCStrategy();
         }
-        return new CreditCardAccount(person, strategy);
+        CreditCardAccount account = new CreditCardAccount(person, strategy);
+        account.getCustomer().addCreditCard(account);
+        return account;
     }
 }

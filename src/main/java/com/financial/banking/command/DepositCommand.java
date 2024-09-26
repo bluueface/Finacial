@@ -1,4 +1,4 @@
-package com.financial.banking;
+package com.financial.banking.command;
 
 import com.financial.framework.Account;
 
