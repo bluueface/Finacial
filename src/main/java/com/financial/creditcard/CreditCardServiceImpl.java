@@ -2,7 +2,6 @@ package com.financial.creditcard;
 
 import com.financial.creditcard.facade.CreditCardService;
 import com.financial.framework.Account;
-import com.financial.framework.AccountEntry;
 import com.financial.framework.AccountDAOImpl;
 import com.financial.framework.Customer;
 import com.financial.framework.CustomerDAOImpl;
@@ -11,8 +10,6 @@ import com.financial.framework.consumer.AccountSummaryConsumer;
 import com.financial.framework.facade.AccountDAO;
 import com.financial.framework.facade.CustomerDAO;
 import com.financial.framework.factory.CreditCardFactory;
-
-import java.time.LocalDate;
 
 public class CreditCardServiceImpl implements CreditCardService {
     private final CreditCardFactory factory;
@@ -69,23 +66,23 @@ public class CreditCardServiceImpl implements CreditCardService {
     }
 
     @Override
-    public void deposit(String accountNo, double amount) {
-        Account account = accountDAO.loadAccount(accountNo);
+    public void deposit(String accountNumber, double amount) {
+        Account account = accountDAO.loadAccount(accountNumber);
         if (account != null && amount > 0) {
             account.deposit(amount);
             accountDAO.updateAccount(account);
             // Notify the customer about the payment
             //implement observer
 //            EmailService.sendEmail(account.getCustomer().getEmail(),
-//                    "Payment of $" + amount + " received for credit card account: " + accountNo);
+//                    "Payment of $" + amount + " received for credit card account: " + accountNumber);
         } else {
             System.out.println("Invalid payment amount or account not found.");
         }
     }
 
     @Override
-    public void withdraw(String accountNo, double amount) {
-        Account account = accountDAO.loadAccount(accountNo);
+    public void withdraw(String accountNumber, double amount) {
+        Account account = accountDAO.loadAccount(accountNumber);
         if (account != null && amount > 0) {
             account.withdraw(amount);
             accountDAO.updateAccount(account);
@@ -93,7 +90,7 @@ public class CreditCardServiceImpl implements CreditCardService {
             if (amount > 400) {
                 // implement observer
                /* EmailService.sendEmail(account.getCustomer().getEmail(),
-                        "Alert: A charge of $" + amount + " was made on your credit card account: " + accountNo +
+                        "Alert: A charge of $" + amount + " was made on your credit card account: " + accountNumber +
                               ". Description: " + description);*/
             }
         } else {
