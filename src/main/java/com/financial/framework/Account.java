@@ -1,19 +1,28 @@
 package com.financial.framework;
 
+import com.financial.framework.observer.Observer;
+import com.financial.framework.observer.Subject;
 import com.financial.framework.strategy.AccountStrategy;
 
 import java.util.*;
 
-public class Account {
+public class Account implements Subject {
     private String accountNumber;
     private final AccountStrategy accountStrategy;
     private final Customer customer;
     private final List<AccountEntry> entryList = new LinkedList<>();
+    private List<Observer> observers;
+
+    Observer loggerObserver = new Logger();
+    Observer emailObserver = new EmailSender();
 
     public Account(String accountNumber, Customer customer, AccountStrategy accountStrategy) {
         this.accountNumber = accountNumber;
         this.accountStrategy = accountStrategy;
         this.customer = customer;
+
+		this.addObserver(loggerObserver);
+        this.addObserver(emailObserver);
     }
 
     public Account(Customer customer, AccountStrategy accountStrategy) {
@@ -83,5 +92,22 @@ public class Account {
 
     public AccountStrategy getAccountStrategy() {
         return accountStrategy;
+    }
+
+    @Override
+    public void notifyObservers(String msg) {
+        for (Observer o: this.observers) {
+            o.update(this.customer.getEmail(), msg);
+        }
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        this.observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        this.observers.remove(observer);
     }
 }

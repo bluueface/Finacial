@@ -58,10 +58,10 @@ public class BankingServiceImpl implements BankingService {
             accountDAO.saveAccount(account);
             if (account.getAccountStrategy().getName().equals("Company")) {
                 //implement observer
-                //EmailService.sendEmail("Company", "Account " + accountNumber + " had a deposit of $" + amount);
+                account.notifyObservers("Account " + account.getAccountNumber() + " had a deposit of $" + amount + ". New balance: $" + (account.getBalance() - amount));
             } else if (amount > 500) {
                 //implement observer
-                //EmailService.sendEmail("Personal", "Account " + accountNumber + " had a deposit of $" + amount + ". New balance: $" + balance);
+                account.notifyObservers("Account " + account.getAccountNumber() + " had a deposit of $" + amount + ". New balance: $" + (account.getBalance() - amount));
             } else {
                 System.out.println("Invalid deposit or account not found.");
             }
@@ -76,10 +76,10 @@ public class BankingServiceImpl implements BankingService {
                 accountDAO.saveAccount(account);
                 if (account.getAccountStrategy().getName().equals("Company")) {
                     //implement observer
-                    //EmailService.sendEmail("Company", "Account " + accountNumber + " had a withdrawal of $" + amount);
+                    account.notifyObservers("Account " + account.getAccountNumber() + " had a withdrawal of $" + amount + ", New balance: $" + (account.getBalance() - amount));
                 } else if (amount > 500 || amount < 0) {
                     //implement observer
-                    //EmailService.sendEmail("Personal", "Account " + accountNumber + " had a withdrawal of $" + amount + ". New balance: $" + balance);
+                    account.notifyObservers("Account " + account.getAccountNumber() + " had a withdrawal of $" + amount + ", New balance: $" + (account.getBalance() - amount));
                 } else {
                     System.out.println("Invalid withdrawal, insufficient funds, or account not found.");
                 }
