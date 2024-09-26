@@ -1,5 +1,6 @@
 package com.financial.creditcard.ui;
 
+import com.financial.creditcard.CreditCardAccount;
 import com.financial.creditcard.CreditCardServiceImpl;
 import com.financial.creditcard.CreditCardType;
 import com.financial.creditcard.facade.CreditCardService;
@@ -205,10 +206,11 @@ public class JDialog_AddCCAccount extends JDialog {
         builder.setZip(parentframe.zip);
         builder.setState(parentframe.state);
 
-        Account creditCard = parentframe.getCreditCardService().createCreditCard(type, builder);
+        CreditCardAccount creditCard = parentframe.getCreditCardService().createCreditCard(type, builder);
 
 
         parentframe.ccnumber = creditCard.getAccountNumber();
+        parentframe.expdate = creditCard.getExpiryDate();
         parentframe.newaccount = true;
         dispose();
     }

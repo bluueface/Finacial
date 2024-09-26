@@ -1,16 +1,20 @@
 package com.financial.creditcard;
 
+import com.financial.creditcard.facade.BillingReport;
 import com.financial.framework.Account;
 import com.financial.framework.strategy.CreditCardStrategy;
 import com.financial.framework.Customer;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Date;
 
 public class CreditCardAccount extends Account {
     private final String cardNumber;
-    private final Date expiryDate;
-    private CreditCardStrategy creditCardStrategy;
+    private final LocalDate expiryDate;
 
     public CreditCardAccount(Customer customer, CreditCardStrategy creditCardStrategy) {
         super(customer, creditCardStrategy);
@@ -23,9 +27,10 @@ public class CreditCardAccount extends Account {
         return getAccountNumber().equals(accountNoOrCardNo) || cardNumber.equals(accountNoOrCardNo);
     }
 
-    void computeMonthlyBilling(double amount, int year, int month) {
-        double charge = creditCardStrategy.computeCharge(this, year, month);
-        this.withdraw(charge);
+    public BillingReport generateMonthlyReport() {
+        LocalDate now = LocalDate.now();
+        CreditCardStrategy strategy = (CreditCardStrategy) getAccountStrategy();
+        return strategy.computeCharge(this, now.getYear(), now.getMonthValue());
     }
 
     public String getCardNumber() {
@@ -33,18 +38,18 @@ public class CreditCardAccount extends Account {
     }
 
     public String getExpiryDate() {
-        return expiryDate.toString();
+        return expiryDate.format(DateTimeFormatter.ofPattern("MM/yyyy"));
     }
 
     private String generateCardNumber() {
         return String.valueOf(new Date().getTime()).substring(0, 12);
     }
 
-    private Date computeCardExpiry() {
-        return Date.from(Instant.now());
+    private LocalDate computeCardExpiry() {
+        return LocalDate.now().plusYears(4);
     }
 
     public String getAccountType() {
-        return creditCardStrategy.getName();
+        return getAccountStrategy().getName();
     }
 }

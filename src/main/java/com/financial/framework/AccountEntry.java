@@ -1,16 +1,17 @@
 package com.financial.framework;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class AccountEntry {
-    private final Date date;
+    private final LocalDate date;
     private final double amount;
     private final String description;
     private final double balance;
 
     public AccountEntry(double amount, String description) {
         super();
-        this.date = new Date();
+        this.date = LocalDate.now();
         this.amount = amount;
         this.description = description;
         balance = 0;
@@ -20,7 +21,7 @@ public class AccountEntry {
         return amount;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
