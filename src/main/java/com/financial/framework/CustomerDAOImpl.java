@@ -17,7 +17,7 @@ public class CustomerDAOImpl implements CustomerDAO {
             customerList.remove(customerExists);
             customerExists.getAccounts().forEach(customer::addAccount);
         }
-        customerList.add(customer); // add the new
+        customerList.add(customer);
     }
 
     @Override

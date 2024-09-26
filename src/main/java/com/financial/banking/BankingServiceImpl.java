@@ -52,12 +52,16 @@ public class BankingServiceImpl implements BankingService {
 
     @Override
     public void deposit(String accountNo, double amount) {
-
+        Account account = accountDAO.loadAccount(accountNo);
+        account.deposit(amount);
+        accountDAO.saveAccount(account);
     }
 
     @Override
     public void withdraw(String accountNo, double amount) {
-
+        Account account = accountDAO.loadAccount(accountNo);
+        account.withdraw(amount);
+        accountDAO.saveAccount(account);
     }
 
     @Override
