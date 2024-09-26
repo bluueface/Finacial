@@ -1,6 +1,10 @@
 package com.financial.framework;
 
-public class Logger implements Observer{
+import com.financial.framework.observer.Observer;
+
+public class Logger implements Observer {
+
+    @Override
     public void update(String message) {
         System.out.println("Logger here:" + message);
     }
