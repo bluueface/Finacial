@@ -24,13 +24,13 @@ public class CustomerDAOImpl implements CustomerDAO {
 //        }
     }
 
-    public Customer loadAccount(String accountNumber) {
-        Optional<Customer> customer = customers.keySet().stream()
-                .filter(Customer::match)
-                .limit(1
-                ).findFirst();
-        return customer.orElse(null);
-    }
+//    public Customer loadAccount(String accountNumber) {
+//        Optional<Customer> customer = customers.keySet().stream()
+//                .filter(Customer::match)
+//                .limit(1
+//                ).findFirst();
+//        return customer.orElse(null);
+//    }
 
     public Collection<Customer> getCustomers() {
         return customerList;

@@ -36,7 +36,7 @@ public class BankingServiceImpl implements BankingService {
         accountDAO.saveAccount(account);
         Customer customer = account.getCustomer();
         customer.addAccount(account);
-        customerDAO.saveCustomer(customer);
+        //customerDAO.saveCustomer(customer);
 
         return account;
     }
