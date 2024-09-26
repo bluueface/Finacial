@@ -71,14 +71,11 @@ public class App
                     a.addInterest(initialInterest);
                     a.calculateInterest();
                 }
-            }
-        }
-
-        for (Person p : people) {
-            for (Account a : p.getAccounts()) {
                 System.out.println("Person: " + p.getName() + ", Balance after: " + a.getBalance());
             }
         }
+
+
 
 
 

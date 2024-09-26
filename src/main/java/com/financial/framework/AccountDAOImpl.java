@@ -17,7 +17,6 @@ public class AccountDAOImpl implements AccountDAO {
             accountlist.remove(isAccountExist); // remove the old
             accountlist.add(account); // add the new
         }
-
     }
 
     public Account loadAccount(String accountNumber) {
@@ -32,5 +31,4 @@ public class AccountDAOImpl implements AccountDAO {
     public Collection<Account> getAccounts() {
         return accountlist;
     }
-
 }

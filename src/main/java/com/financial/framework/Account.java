@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class Account {
+public class Account {
     private String accountNumber;
     private List<AccountEntry> entryList = new ArrayList<AccountEntry>();
     private InterestStrategy interestStrategy;
