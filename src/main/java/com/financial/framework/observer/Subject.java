@@ -1,7 +1,7 @@
 package com.financial.framework.observer;
 
 public interface Subject {
-    void notifyObservers();
+    void notifyObservers(String msg);
     void addObserver(Observer observer);
     void removeObserver(Observer observer);
 }

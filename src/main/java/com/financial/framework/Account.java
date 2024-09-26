@@ -13,16 +13,24 @@ public class Account implements Subject {
     private final Customer customer;
     private final List<AccountEntry> entryList = new LinkedList<>();
 
+    List<Observer> observers = new LinkedList<Observer>();
+    Observer loggerObserver = new Logger();
+    Observer emailObserver = new EmailSender();
+
     public Account(String accountNumber, Customer customer, AccountStrategy accountStrategy) {
         this.accountNumber = accountNumber;
         this.accountStrategy = accountStrategy;
         this.customer = customer;
+        observers.add(loggerObserver);
+        observers.add(emailObserver);
     }
 
     public Account(Customer customer, AccountStrategy accountStrategy) {
         this.accountNumber = generateAccountNo();
         this.accountStrategy = accountStrategy;
         this.customer = customer;
+        observers.add(loggerObserver);
+        observers.add(emailObserver);
     }
 
     public boolean match(String accountNo) {
@@ -89,17 +97,19 @@ public class Account implements Subject {
     }
 
     @Override
-    public void notifyObservers() {
-
+    public void notifyObservers(String msg) {
+        for (Observer o: this.observers) {
+            o.update(this.getCustomer().getEmail(), msg);
+        }
     }
 
     @Override
     public void addObserver(Observer observer) {
-
+        observers.add(observer);
     }
 
     @Override
     public void removeObserver(Observer observer) {
-
+        observers.remove(observer);
     }
 }

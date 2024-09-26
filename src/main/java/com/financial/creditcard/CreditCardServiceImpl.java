@@ -71,10 +71,7 @@ public class CreditCardServiceImpl implements CreditCardService {
         if (account != null && amount > 0) {
             account.deposit(amount);
             accountDAO.updateAccount(account);
-            // Notify the customer about the payment
-            //implement observer
-//            EmailService.sendEmail(account.getCustomer().getEmail(),
-//                    "Payment of $" + amount + " received for credit card account: " + accountNumber);
+            account.notifyObservers("Payment of $" + amount + " received for credit card account: " + accountNumber);
         } else {
             System.out.println("Invalid payment amount or account not found.");
         }
@@ -86,12 +83,8 @@ public class CreditCardServiceImpl implements CreditCardService {
         if (account != null && amount > 0) {
             account.withdraw(amount);
             accountDAO.updateAccount(account);
-            // Notify the customer if the charge is over $400
             if (amount > 400) {
-                // implement observer
-               /* EmailService.sendEmail(account.getCustomer().getEmail(),
-                        "Alert: A charge of $" + amount + " was made on your credit card account: " + accountNumber +
-                              ". Description: " + description);*/
+                account.notifyObservers("Alert: A charge of $" + amount + " was made on your credit card account: " + accountNumber);
             }
         } else {
             System.out.println("Invalid charge amount or account not found.");
