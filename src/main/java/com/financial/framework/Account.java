@@ -2,6 +2,7 @@ package com.financial.framework;
 
 import com.financial.framework.strategy.AccountStrategy;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class Account {
@@ -40,7 +41,7 @@ public class Account {
     }
 
     public void deposit(double amount) {
-        deposit(amount, "deposit");
+        deposit(amount, "deposit of" + amount + "to" + accountNumber + "in" + LocalDate.now());
     }
 
     public void withdraw(double amount, String description) {
@@ -49,7 +50,7 @@ public class Account {
     }
 
     public void withdraw(double amount) {
-        withdraw(amount, "withdraw");
+        withdraw(amount, "withdraw of" + amount + "to" + accountNumber + "in" + LocalDate.now());
     }
 
     public void addInterest() {
