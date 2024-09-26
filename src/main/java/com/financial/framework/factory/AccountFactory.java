@@ -12,18 +12,24 @@ public class AccountFactory {
     public Account createPersonalAccount(String accountNo, PersonBuilder builder) {
         Person person = new Person(builder);
         AccountStrategy strategy = new PersonalAccountStrategy();
-        return new Account(accountNo, person, strategy);
+        Account account = new Account(accountNo, person, strategy);
+        account.getCustomer().addAccount(account);
+        return account;
     }
 
     public Account createSavingsAccount(String accountNo, CompanyBuilder builder) {
         Company company = new Company(builder);
         AccountStrategy strategy = new SavingsAccountStrategy();
-        return new Account(accountNo, company, strategy);
+        Account account = new Account(accountNo, company, strategy);
+        account.getCustomer().addAccount(account);
+        return account;
     }
 
     public Account createCheckingAccount(String accountNo, CompanyBuilder builder) {
         Company company = new Company(builder);
         AccountStrategy strategy = new CheckingAccountStrategy();
-        return new Account(accountNo, company, strategy);
+        Account account = new Account(accountNo, company, strategy);
+        account.getCustomer().addAccount(account);
+        return account;
     }
 }

@@ -27,6 +27,11 @@ public class Person extends Customer {
     }
 
     @Override
+    public boolean match(String identity) {
+        return getName().equals(identity);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Person)) return false;

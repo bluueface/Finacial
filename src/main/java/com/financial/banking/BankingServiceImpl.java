@@ -5,6 +5,7 @@ import com.financial.framework.*;
 import com.financial.framework.builder.CompanyBuilder;
 import com.financial.framework.builder.PersonBuilder;
 import com.financial.framework.facade.AccountDAO;
+import com.financial.framework.facade.CustomerDAO;
 import com.financial.framework.factory.AccountFactory;
 
 import java.util.ArrayList;
@@ -14,29 +15,37 @@ public class BankingServiceImpl implements BankingService {
     private final List<Customer> customers = new ArrayList<>();
     private final AccountFactory accountFactory;
     private final AccountDAO accountDAO;
+    private final CustomerDAO customerDAO;
 
-    public BankingServiceImpl(AccountFactory accountFactory, AccountDAO accountDAO) {
+    public BankingServiceImpl(AccountFactory accountFactory, AccountDAO accountDAO, CustomerDAO customerDAO) {
         this.accountFactory = accountFactory;
         this.accountDAO = accountDAO;
+        this.customerDAO = customerDAO;
     }
 
     @Override
     public Account createPersonalAccount(String accountNo) {
-        return accountFactory.createPersonalAccount(accountNo, new PersonBuilder());
+        Account account = accountFactory.createPersonalAccount(accountNo, new PersonBuilder());
+        accountDAO.saveAccount(account);
+        customerDAO.saveCustomer(account.getCustomer());
+
+        return account;
     }
 
     @Override
     public Account createSavingsAccount(String accountNo) {
-        return accountFactory.createSavingsAccount(accountNo, new CompanyBuilder());
+        Account account = accountFactory.createSavingsAccount(accountNo, new CompanyBuilder());
+        accountDAO.saveAccount(account);
+        customerDAO.saveCustomer(account.getCustomer());
+
+        return account;
     }
 
     @Override
     public Account createCheckingAccount(String accountNo) {
         Account account = accountFactory.createCheckingAccount(accountNo, new CompanyBuilder());
         accountDAO.saveAccount(account);
-        Customer customer = account.getCustomer();
-        customer.addAccount(account);
-        customerDAO.saveCustomer(customer);
+        customerDAO.saveCustomer(account.getCustomer());
 
         return account;
     }
@@ -53,15 +62,15 @@ public class BankingServiceImpl implements BankingService {
 
     @Override
     public void addInterest() {
-
+        customerDAO.getCustomers().stream()
+                .flatMap(customer -> customer.getAccounts().stream())
+                .forEach(Account::addInterest);
     }
 
     @Override
     public void generateAccountsReport() {
-        // iterate over all customer accounts
-    }
-
-    private void saveCustomer(Account account) {
-
+        customerDAO.getCustomers().stream()
+                .flatMap(customer -> customer.getAccounts().stream())
+                .forEach(System.out::println);
     }
 }
