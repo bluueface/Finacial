@@ -3,9 +3,8 @@ package com.financial.framework;
 import com.financial.framework.observer.Observer;
 
 public class Logger implements Observer {
-
     @Override
-    public void update(String message) {
-        System.out.println("Logger here:" + message);
+    public void update(String email, String message) {
+
     }
 }
