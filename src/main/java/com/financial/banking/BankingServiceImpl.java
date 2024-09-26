@@ -53,28 +53,51 @@ public class BankingServiceImpl implements BankingService {
     @Override
     public void deposit(String accountNo, double amount) {
         Account account = accountDAO.loadAccount(accountNo);
-        account.deposit(amount);
-        accountDAO.saveAccount(account);
+        if (account != null && amount > 0) {
+            account.deposit(amount);
+            accountDAO.saveAccount(account);
+            if (account.getAccountStrategy().getName().equals("Company")) {
+                //implement observer
+                //EmailService.sendEmail("Company", "Account " + accountNumber + " had a deposit of $" + amount);
+            } else if (amount > 500) {
+                //implement observer
+                //EmailService.sendEmail("Personal", "Account " + accountNumber + " had a deposit of $" + amount + ". New balance: $" + balance);
+            } else {
+                System.out.println("Invalid deposit or account not found.");
+            }
+        }
     }
 
-    @Override
-    public void withdraw(String accountNo, double amount) {
-        Account account = accountDAO.loadAccount(accountNo);
-        account.withdraw(amount);
-        accountDAO.saveAccount(account);
-    }
+        @Override
+        public void withdraw (String accountNo,double amount){
+            Account account = accountDAO.loadAccount(accountNo);
+            if (account != null && amount > 0 && amount <= account.getBalance()) {
+                account.withdraw(amount);
+                accountDAO.saveAccount(account);
+                if (account.getAccountStrategy().getName().equals("Company")) {
+                    //implement observer
+                    //EmailService.sendEmail("Company", "Account " + accountNumber + " had a withdrawal of $" + amount);
+                } else if (amount > 500 || amount < 0) {
+                    //implement observer
+                    //EmailService.sendEmail("Personal", "Account " + accountNumber + " had a withdrawal of $" + amount + ". New balance: $" + balance);
+                } else {
+                    System.out.println("Invalid withdrawal, insufficient funds, or account not found.");
+                }
+            }
+            }
 
-    @Override
-    public void addInterest() {
-        customerDAO.getCustomers().stream()
-                .flatMap(customer -> customer.getAccounts().stream())
-                .forEach(Account::addInterest);
-    }
 
-    @Override
-    public void generateAccountsReport() {
-        customerDAO.getCustomers().stream()
-                .flatMap(customer -> customer.getAccounts().stream())
-                .forEach(System.out::println);
-    }
-}
+            @Override
+            public void addInterest () {
+                customerDAO.getCustomers().stream()
+                        .flatMap(customer -> customer.getAccounts().stream())
+                        .forEach(Account::addInterest);
+            }
+
+            @Override
+            public void generateAccountsReport () {
+                customerDAO.getCustomers().stream()
+                        .flatMap(customer -> customer.getAccounts().stream())
+                        .forEach(System.out::println);
+            }
+        }
