@@ -1,6 +1,7 @@
 package com.financial.creditcard;
 
 import com.financial.creditcard.facade.CreditCardService;
+import com.financial.framework.Account;
 import com.financial.framework.AccountDAOImpl;
 import com.financial.framework.Customer;
 import com.financial.framework.CustomerDAOImpl;
@@ -65,17 +66,42 @@ public class CreditCardServiceImpl implements CreditCardService {
     }
 
     @Override
-    public void deposit(double amount) {
-        System.out.println("Deposit ");
+    public void deposit(String accountNumber, double amount) {
+        Account account = accountDAO.loadAccount(accountNumber);
+        if (account != null && amount > 0) {
+            account.deposit(amount);
+            accountDAO.updateAccount(account);
+            // Notify the customer about the payment
+            //implement observer
+//            EmailService.sendEmail(account.getCustomer().getEmail(),
+//                    "Payment of $" + amount + " received for credit card account: " + accountNumber);
+        } else {
+            System.out.println("Invalid payment amount or account not found.");
+        }
     }
 
     @Override
-    public void withdraw(double amount) {
-        System.out.println("Withdraw");
+    public void withdraw(String accountNumber, double amount) {
+        Account account = accountDAO.loadAccount(accountNumber);
+        if (account != null && amount > 0) {
+            account.withdraw(amount);
+            accountDAO.updateAccount(account);
+            // Notify the customer if the charge is over $400
+            if (amount > 400) {
+                // implement observer
+               /* EmailService.sendEmail(account.getCustomer().getEmail(),
+                        "Alert: A charge of $" + amount + " was made on your credit card account: " + accountNumber +
+                              ". Description: " + description);*/
+            }
+        } else {
+            System.out.println("Invalid charge amount or account not found.");
+        }
     }
 
     @Override
     public void addInterest() {
-        System.out.println("Add Interest");
+        customerDAO.getCustomers().stream()
+                .flatMap(customer -> customer.getAccounts().stream())
+                .forEach(Account::addInterest);
     }
 }

@@ -9,9 +9,9 @@ public interface CreditCardService {
 
     String generateMonthlyBillingReport();
 
-    void deposit(double amount);
+    void deposit(String accountNumber,double amount);
 
-    void withdraw(double amount);
+    void withdraw(String accountNumber,double amount);
 
     void addInterest();
 }
