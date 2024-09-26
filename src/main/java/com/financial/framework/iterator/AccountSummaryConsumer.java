@@ -1,4 +1,4 @@
-package com.financial.framework.consumer;
+package com.financial.framework.iterator;
 
 import com.financial.creditcard.facade.BillingReport;
 import com.financial.framework.AccountEntry;
