@@ -17,6 +17,7 @@ public abstract class Customer {
     private String city;
     private String state;
     private String zip;
+    private String email;
 
     public Customer(Builder builder) {
         accounts = new ArrayList<>();
@@ -26,6 +27,7 @@ public abstract class Customer {
         city = builder.getCity();
         state = builder.getState();
         zip = builder.getZip();
+        email = builder.getEmail();
     }
 
     @Override
@@ -106,5 +108,13 @@ public abstract class Customer {
 
     public void setZip(String zip) {
         this.zip = zip;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

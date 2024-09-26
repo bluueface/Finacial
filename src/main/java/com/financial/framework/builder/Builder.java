@@ -6,6 +6,7 @@ public class Builder {
     private String city;
     private String state;
     private String zip;
+    private String email;
 
     public String getName() {
         return name;
@@ -50,5 +51,13 @@ public class Builder {
     public Builder setZip(String zip) {
         this.zip = zip;
         return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

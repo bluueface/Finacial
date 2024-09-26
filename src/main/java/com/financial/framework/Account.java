@@ -81,4 +81,7 @@ public class Account {
         return String.valueOf(new Date().getTime()).substring(0, 10);
     }
 
+    public AccountStrategy getAccountStrategy() {
+        return accountStrategy;
+    }
 }
