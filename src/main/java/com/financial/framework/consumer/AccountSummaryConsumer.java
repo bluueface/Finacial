@@ -12,6 +12,7 @@ public class AccountSummaryConsumer implements Consumer<AccountEntry> {
     private final LocalDate startDate;
     private final LocalDate endDate;
 
+
     public AccountSummaryConsumer(int year, int month) {
         startDate = LocalDate.of(year, month, 1);
         endDate = startDate.plusMonths(1);

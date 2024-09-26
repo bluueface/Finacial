@@ -43,4 +43,8 @@ public class CreditCardAccount extends Account {
     private Date computeCardExpiry() {
         return Date.from(Instant.now());
     }
+
+    public String getAccountType() {
+        return creditCardStrategy.getName();
+    }
 }
