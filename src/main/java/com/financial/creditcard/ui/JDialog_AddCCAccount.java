@@ -12,14 +12,8 @@ import javax.swing.*;
 public class JDialog_AddCCAccount extends JDialog {
     private CardFrm parentframe;
 
-    private final CreditCardService creditCardService;
-
-
     public JDialog_AddCCAccount(CardFrm parent) {
         super(parent);
-
-        CreditCardFactory cf = new CreditCardFactory();
-        creditCardService = new CreditCardServiceImpl(cf);
 
         parentframe = parent;
 
@@ -211,7 +205,7 @@ public class JDialog_AddCCAccount extends JDialog {
         builder.setZip(parentframe.zip);
         builder.setState(parentframe.state);
 
-        creditCardService.createCreditCard(type, builder);
+        parentframe.getCreditCardService().createCreditCard(type, builder);
 
         parentframe.newaccount = true;
         dispose();

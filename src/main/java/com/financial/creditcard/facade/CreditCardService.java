@@ -7,7 +7,7 @@ import com.financial.framework.builder.PersonBuilder;
 public interface CreditCardService {
     Account createCreditCard(CreditCardType cardType, PersonBuilder builder);
 
-    void generateMonthlyBillingReport();
+    String generateMonthlyBillingReport();
 
     void deposit(double amount);
 
