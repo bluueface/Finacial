@@ -8,10 +8,16 @@ import java.util.List;
 
 public class Account {
     private String accountNumber;
+    private Party customer;
     private List<AccountEntry> entryList = new ArrayList<AccountEntry>();
     private InterestStrategy interestStrategy;
     private double balance;
 
+    public Account(String accountNumber, Party customer) {
+        this.balance = 1000;
+        this.accountNumber = accountNumber;
+        this.customer = customer;
+    }
     public Account(String accountNumber) {
         this.balance = 1000;
         this.accountNumber = accountNumber;

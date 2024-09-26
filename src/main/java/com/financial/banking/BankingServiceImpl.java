@@ -11,10 +11,8 @@ public class BankingServiceImpl implements BankingService {
     }
 
     @Override
-    public Account createAccount(String accountNumber, String customerName) {
-        Account account = new Account(accountNumber);
-        accountDAO.saveAccount(account);
-        return account;
+    public Account createAccount(Party customerParty, String accountNo) {
+        return null;
     }
 
     @Override

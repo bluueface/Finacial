@@ -6,6 +6,7 @@ import com.financial.banking.PersonalAccountInterestStrategy;
 import com.financial.creditcard.*;
 import com.financial.framework.Account;
 import com.financial.framework.Company;
+import com.financial.framework.Party;
 import com.financial.framework.Person;
 
 import java.util.ArrayList;
