@@ -3,8 +3,11 @@ package com.financial.creditcard;
 import com.financial.creditcard.facade.CreditCardService;
 import com.financial.framework.Account;
 import com.financial.framework.AccountEntry;
+import com.financial.framework.AccountDAOImpl;
 import com.financial.framework.Customer;
+import com.financial.framework.CustomerDAOImpl;
 import com.financial.framework.builder.PersonBuilder;
+import com.financial.framework.consumer.AccountSummaryConsumer;
 import com.financial.framework.facade.AccountDAO;
 import com.financial.framework.facade.CustomerDAO;
 import com.financial.framework.factory.CreditCardFactory;
@@ -16,15 +19,15 @@ public class CreditCardServiceImpl implements CreditCardService {
     private final AccountDAO accountDAO;
     private final CustomerDAO customerDAO;
 
-    public CreditCardServiceImpl(CreditCardFactory factory, AccountDAO accountDAO, CustomerDAO customerDAO) {
-        this.factory = factory;
-        this.accountDAO = accountDAO;
-        this.customerDAO = customerDAO;
+    public CreditCardServiceImpl() {
+        this.factory = new CreditCardFactory();
+        this.accountDAO = new AccountDAOImpl();
+        this.customerDAO = new CustomerDAOImpl();
     }
 
     @Override
-    public CreditCardAccount createCreditCard(CreditCardType type) {
-        CreditCardAccount account = factory.createCreditCard(type, new PersonBuilder());
+    public CreditCardAccount createCreditCard(CreditCardType type, PersonBuilder builder) {
+        CreditCardAccount account = factory.createCreditCard(type, builder);
         Customer customer = account.getCustomer();
         customer.addCreditCard(account);
         customer.addAccount(account);
@@ -35,10 +38,34 @@ public class CreditCardServiceImpl implements CreditCardService {
     }
 
     @Override
-    public void generateMonthlyBillingReport() {
-        customerDAO.getCustomers().stream()
-                .flatMap(customer -> customer.getCreditCardAccounts().stream())
-                .forEach(System.out::println);
+    public String generateMonthlyBillingReport() {
+        StringBuilder billString = new StringBuilder();
+
+        customerDAO.getCustomers().forEach(customer -> {
+            customer.getCreditCardAccounts().forEach(account -> {
+                AccountSummaryConsumer summaryConsumer = new AccountSummaryConsumer(2024, 9);
+                account.getEntryList().forEach(summaryConsumer);
+
+                billString.append("Name= ").append(customer.getName()).append("\r\n");
+                billString.append("CC number= ").append(account.getCardNumber()).append("\r\n");
+                /**
+                 * FIXME
+                 */
+                // billString.append("CC type= ").append(account.getAccountType()).append("\r\n");
+                billString.append("Previous balance = $ ").append(summaryConsumer.getPreviousBalance()).append("\r\n");
+                billString.append("Total Credits = $ ").append(summaryConsumer.getTotalCredits()).append("\r\n");
+                billString.append("Total Charges = $ ").append(summaryConsumer.getTotalCharges()).append("\r\n");
+
+                double newBalance = summaryConsumer.getPreviousBalance() + summaryConsumer.getTotalCharges() - summaryConsumer.getTotalCredits();
+                billString.append("New balance = $ ").append(newBalance).append("\r\n");
+                billString.append("\r\n");
+            });
+        });
+
+        System.out.println(billString);
+
+
+        return billString.toString();
     }
 
     @Override
